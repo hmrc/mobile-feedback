@@ -1,8 +1,9 @@
 import uk.gov.hmrc.DefaultBuildSettings.integrationTestSettings
-import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin.publishingSettings
 
-lazy val microservice = Project("mobile-feedback", file("."))
-  .enablePlugins(play.sbt.PlayScala, SbtDistributablesPlugin)
+val appName = "mobile-feedback"
+
+lazy val microservice = Project(appName, file("."))
+  .enablePlugins(play.sbt.PlayScala, SbtDistributablesPlugin, ScoverageSbtPlugin)
   .settings(
     majorVersion        := 0,
     scalaVersion        := "2.13.8",
@@ -11,8 +12,8 @@ lazy val microservice = Project("mobile-feedback", file("."))
     // suppress warnings in generated routes files
     scalacOptions += "-Wconf:src=routes/.*:s",
   )
-  .settings(publishingSettings: _*)
   .configs(IntegrationTest)
+  .disablePlugins(JUnitXmlReportPlugin)
   .settings(integrationTestSettings(): _*)
   .settings(resolvers += Resolver.jcenterRepo)
   .settings(CodeCoverageSettings.settings: _*)
