@@ -14,13 +14,19 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.mobilefeedback.config
+package uk.gov.hmrc.mobilefeedback.models
 
-import javax.inject.{Inject, Singleton}
-import play.api.Configuration
+import play.api.libs.json.{Format, Json}
 
-@Singleton
-class AppConfig @Inject()(config: Configuration) {
+case class Feedback(
+                   ableToDo: Option[Boolean],
+                   howEasyScore: Option[Int],
+                   whyGiveScore: Option[String],
+                   howDoYouFeelScore: Option[Int]
+                   )
 
+object Feedback {
+
+  implicit val format:Format[Feedback] = Json.format[Feedback]
 
 }

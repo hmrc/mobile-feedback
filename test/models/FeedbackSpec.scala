@@ -14,13 +14,21 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.mobilefeedback.config
+package models
 
-import javax.inject.{Inject, Singleton}
-import play.api.Configuration
+import play.api.libs.json.Json
+import uk.gov.hmrc.mobilefeedback.models.Feedback
+import utils.BaseSpec
+import common.MobileFeedbackTestData
 
-@Singleton
-class AppConfig @Inject()(config: Configuration) {
+class FeedbackSpec extends BaseSpec with MobileFeedbackTestData {
 
+  "correctly write a feedback model to JSON" in {
+    Json.toJson(feedbackModel) shouldBe feedbackJson
+  }
+
+  "correctly read a feedback model from JSON" in {
+    feedbackJson.as[Feedback] shouldBe feedbackModel
+  }
 
 }

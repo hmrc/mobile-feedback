@@ -14,13 +14,17 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.mobilefeedback.config
+package uk.gov.hmrc.mobilefeedback.types
 
-import javax.inject.{Inject, Singleton}
-import play.api.Configuration
+import eu.timepit.refined._
+import eu.timepit.refined.api.Refined
+import eu.timepit.refined.string.MatchesRegex
 
-@Singleton
-class AppConfig @Inject()(config: Configuration) {
 
+object ModelTypes {
+
+  type appOrigin = String Refined ValidOrigin
+
+  private type ValidOrigin = MatchesRegex[W.`"(mobile-paye)"`.T]
 
 }
