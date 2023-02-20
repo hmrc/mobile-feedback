@@ -28,7 +28,7 @@ import play.api.mvc.Headers
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.mobilefeedback.models.Feedback
 import common.MobileFeedbackTestData
-import uk.gov.hmrc.mobilefeedback.types.ModelTypes.appOrigin
+import uk.gov.hmrc.mobilefeedback.types.ModelTypes.Origin
 import eu.timepit.refined.auto._
 
 import scala.concurrent.Future
@@ -37,9 +37,9 @@ class FeedbackControllerSpec extends BaseSpec with MockFactory with OneInstanceP
 
   val mockService: FeedbackService = mock[FeedbackService]
 
-  val origin : appOrigin = "mobile-paye"
-  def mockSendAudit(f: Future[Unit]): CallHandler3[appOrigin, Feedback, HeaderCarrier, Future[Unit]] =
-    (mockService.sendAudit(_: appOrigin, _: Feedback)(_: HeaderCarrier)).expects(*, *, *).returning(f)
+  val origin : Origin = "mobile-paye"
+  def mockSendAudit(f: Future[Unit]): CallHandler3[Origin, Feedback, HeaderCarrier, Future[Unit]] =
+    (mockService.sendAudit(_: Origin, _: Feedback)(_: HeaderCarrier)).expects(*, *, *).returning(f)
 
   private val fakeRequest = FakeRequest("POST", "/feedback/mobile-paye", Headers((CONTENT_TYPE, JSON)), feedbackJson)
   private val controller = new FeedbackController(Helpers.stubControllerComponents(), mockService)

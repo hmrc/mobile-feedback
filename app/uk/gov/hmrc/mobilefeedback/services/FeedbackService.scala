@@ -18,7 +18,7 @@ package uk.gov.hmrc.mobilefeedback.services
 
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.mobilefeedback.models.Feedback
-import uk.gov.hmrc.mobilefeedback.types.ModelTypes.appOrigin
+import uk.gov.hmrc.mobilefeedback.types.ModelTypes.Origin
 import uk.gov.hmrc.play.audit.http.connector.AuditConnector
 
 import javax.inject.Inject
@@ -28,7 +28,7 @@ class FeedbackService @Inject()(auditConnector: AuditConnector)(implicit ex: Exe
 
   val auditType = "feedback"
 
-  def buildAuditMap(origin : appOrigin, feedback: Feedback) : Map[String, String] = {
+  def buildAuditMap(origin : Origin, feedback: Feedback) : Map[String, String] = {
     val withOrigin: Map[String, String] = Map("origin" -> origin.toString())
     val ableToDo : Map[String, String] = Map("ableToDo" -> feedback.ableToDo.map(_.toString).getOrElse("-"))
     val howEasyScore : Map[String, String] = Map("howEasyScore" -> feedback.howEasyScore.map(_.toString).getOrElse("-"))
@@ -41,7 +41,7 @@ class FeedbackService @Inject()(auditConnector: AuditConnector)(implicit ex: Exe
 
   }
 
-  def sendAudit(origin: appOrigin, feedback: Feedback)(implicit hc: HeaderCarrier): Future[Unit] = {
+  def sendAudit(origin: Origin, feedback: Feedback)(implicit hc: HeaderCarrier): Future[Unit] = {
 
     auditConnector.sendExplicitAudit(auditType,  buildAuditMap(origin, feedback))
 

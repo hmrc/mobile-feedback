@@ -25,7 +25,7 @@ import uk.gov.hmrc.play.audit.http.connector.AuditConnector
 import utils.BaseSpec
 import common.MobileFeedbackTestData
 import eu.timepit.refined.auto._
-import uk.gov.hmrc.mobilefeedback.types.ModelTypes.appOrigin
+import uk.gov.hmrc.mobilefeedback.types.ModelTypes.Origin
 
 import scala.concurrent.ExecutionContext
 
@@ -37,7 +37,7 @@ class FeedbackServiceSpec extends BaseSpec with MobileFeedbackTestData with Mock
   def mockSendExtendedAudit(f: Unit): CallHandler4[String, Map[String, String], HeaderCarrier, ExecutionContext, Unit] =
     (auditConnector.sendExplicitAudit(_: String, _: Map[String, String])(_: HeaderCarrier, _: ExecutionContext)).expects(*,*,*,*).returning(f)
 
-  val origin: appOrigin = "mobile-paye"
+  val origin: Origin = "mobile-paye"
 
   "Calling the .buildAuditModel" should {
 

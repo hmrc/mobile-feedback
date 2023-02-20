@@ -24,7 +24,7 @@ import uk.gov.hmrc.http.HeaderCarrier
 import javax.inject.{Inject, Singleton}
 import uk.gov.hmrc.mobilefeedback.models.Feedback
 import uk.gov.hmrc.mobilefeedback.services.FeedbackService
-import uk.gov.hmrc.mobilefeedback.types.ModelTypes.appOrigin
+import uk.gov.hmrc.mobilefeedback.types.ModelTypes.Origin
 import uk.gov.hmrc.play.http.HeaderCarrierConverter.fromRequest
 
 import scala.concurrent.ExecutionContext
@@ -33,7 +33,7 @@ import scala.concurrent.ExecutionContext
 class FeedbackController @Inject()(cc: ControllerComponents, services: FeedbackService)(implicit ex: ExecutionContext)
     extends BackendController(cc) {
 
-  def feedback(origin : appOrigin): Action[JsValue] =
+  def feedback(origin : Origin): Action[JsValue] =
     Action.async(parse.json) { implicit request =>
       implicit val hc: HeaderCarrier =
         fromRequest(request)

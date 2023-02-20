@@ -23,7 +23,7 @@ import eu.timepit.refined.string.MatchesRegex
 
 object ModelTypes {
 
-  type appOrigin = String Refined ValidOrigin
+  type Origin = String Refined ValidOrigin
 
   private type ValidOrigin = MatchesRegex[W.`"(mobile-paye)"`.T]
 
