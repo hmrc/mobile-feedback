@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.mobilefeedback.config
+package utils
 
-import javax.inject.{Inject, Singleton}
-import play.api.Configuration
+import play.api.libs.json.{JsObject, Json}
 
-@Singleton
-class AppConfig @Inject()(config: Configuration) {
+trait MobileFeedbackTestData {
 
+  val feedbackJson: JsObject = Json.obj("ableToDo" -> true,
+    "howEasyScore" -> 5,
+    "whyGiveScore" -> "It was great",
+    "howDoYouFeelScore" -> 4)
 
 }

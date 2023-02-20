@@ -1,7 +1,21 @@
 
 # mobile-feedback
 
-This is a placeholder README.md for a new repository
+## Endpoints
+
+### POST /mobile-feedback/feedback/:origin
+
+In order to trigger a 204 No Content a feedback model must also be provided
+```json
+{
+  "ableToDo": true,
+  "howEasyScore": 5,
+  "whyGiveScore": "It was great",
+  "howDoYouFeelScore": 4
+}
+```
+#### Response
+- 204 - No Content
 
 ### License
 

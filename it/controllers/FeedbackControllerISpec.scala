@@ -14,13 +14,30 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.mobilefeedback.config
+package controllers
 
-import javax.inject.{Inject, Singleton}
-import play.api.Configuration
+import play.api.http.Status
+import play.api.libs.ws.WSRequest
+import utils.{BaseISpec, MobileFeedbackTestData}
 
-@Singleton
-class AppConfig @Inject()(config: Configuration) {
+class FeedbackControllerISpec extends BaseISpec with MobileFeedbackTestData {
+
+
+  val origin = "mobile-paye"
+
+  "POST /feedback/:origin" should {
+
+    "return 204 No Content" in {
+
+      val request: WSRequest = wsUrl(
+        s"/mobile-feedback/feedback/$origin"
+      )
+      val response = await(request.post(feedbackJson))
+      response.status shouldEqual Status.NO_CONTENT
+
+    }
+
+  }
 
 
 }

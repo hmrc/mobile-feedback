@@ -14,23 +14,21 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.mobilefeedback.controllers
+package models
 
-import org.scalatest.matchers.should.Matchers
-import org.scalatest.wordspec.AnyWordSpec
-import play.api.http.Status
-import play.api.test.Helpers._
-import play.api.test.{FakeRequest, Helpers}
+import play.api.libs.json.Json
+import uk.gov.hmrc.mobilefeedback.models.Feedback
+import utils.BaseSpec
+import common.MobileFeedbackTestData
 
-class MicroserviceHelloWorldControllerSpec extends AnyWordSpec with Matchers {
+class FeedbackSpec extends BaseSpec with MobileFeedbackTestData {
 
-  private val fakeRequest = FakeRequest("GET", "/")
-  private val controller = new MicroserviceHelloWorldController(Helpers.stubControllerComponents())
-
-  "GET /" should {
-    "return 200" in {
-      val result = controller.hello()(fakeRequest)
-      status(result) shouldBe Status.OK
-    }
+  "correctly write a feedback model to JSON" in {
+    Json.toJson(feedbackModel) shouldBe feedbackJson
   }
+
+  "correctly read a feedback model from JSON" in {
+    feedbackJson.as[Feedback] shouldBe feedbackModel
+  }
+
 }
